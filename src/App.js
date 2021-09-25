@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+
+const Title = styled.h1``;
+
+const Input = styled.input`
+width:400px;
+height:30px;
+font-size:20px;
+padding:10px;
+border:1px solid #000;
+`;
 
 function App() {
+
+  const [pct, setPct ] = useState(10);
+  const [conta, setConta] = useState(0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Title>Calculadora de Gorjeta</Title>
+      <p>Valor da conta:</p>
+      <Input type="number" value={conta} onChange={(e)=> setConta(parseFloat(e.target.value))} />
+
+      <p>Porcentagem da Gorjeta</p>
+      <Input type="number" value={pct} onChange={(e)=>setPct(parseFloat(e.target.value))} />
+
+      <hr/>
+
+      {conta > 0 &&
+      <>
+      <p>Sub-total: R${conta}</p>
+      <p>Gorjeta ({pct}%): R$ {(pct/100) * conta}</p>
+      <h3>Total: R$ {conta + ((pct/100) * conta)}</h3>
+        </>
+        }
+
+    </>
   );
 }
 
